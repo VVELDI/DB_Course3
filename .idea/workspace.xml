@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90373c1a-bc28-44b8-b771-062bfc430929" name="Changes" comment="Создал модули для работы с API с вакансиями, установил соответствующие библиотеки">
-      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+    <list default="true" id="90373c1a-bc28-44b8-b771-062bfc430929" name="Changes" comment="Написал тесты">
+      <change afterPath="$PROJECT_DIR$/data/vacancies.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +110,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739358461844</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Написал тесты">
+      <option name="closed" value="true" />
+      <created>1739359023492</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1739359023492</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -140,6 +148,7 @@
     <MESSAGE value="Создал модуль main" />
     <MESSAGE value="Создал модули для работы с базой данных" />
     <MESSAGE value="Создал модули для работы с API с вакансиями, установил соответствующие библиотеки" />
-    <option name="LAST_COMMIT_MESSAGE" value="Создал модули для работы с API с вакансиями, установил соответствующие библиотеки" />
+    <MESSAGE value="Написал тесты" />
+    <option name="LAST_COMMIT_MESSAGE" value="Написал тесты" />
   </component>
 </project>
