@@ -1,6 +1,6 @@
 import psycopg2
 
-from src import DBConnection
+from src.DB_Create_module import DBConnection
 
 
 class DBManager(DBConnection):
