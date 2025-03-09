@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 
 import requests
+import time
+
+
 
 
 class ApiHH(ABC):
@@ -108,3 +111,36 @@ class FindEmployerFromHHApi(ApiHH):
             print(f"{employer.get('name')}, id: {employer.get('id')}")
         print("...")
         return self.__employers
+
+    class FindVacancyFromHHApi(ApiHH):
+        """
+        Класс для получения данных по вакансиям из API HeadHunter
+        """
+
+        def __init__(self):
+            self.__url = "https://api.hh.ru/vacancies"
+            self.__headers = {"User-Agent": "HH-User-Agent"}
+            self.__params = {"text": "", "page": 0, "per_page": 100}
+            self.__vacancies = []
+
+        def __get_vacancies_by_employer_id(self, employer_id: str):
+            """Приватный метод для получения вакансий по идентификационному номеру работодателя"""
+            try:
+                self.__params["employer_id"] = employer_id
+                while self.__params.get("page") != 10:
+                    response = requests.get(
+                        self.__url, headers=self.__headers, params=self.__params
+                    )
+                    response_data = response.json()
+
+                    if "items" in response_data:
+                        vacancies = response_data["items"]
+                        self.__vacancies.extend(vacancies)
+                    else:
+                        print(f"Нет вакансий для работодателя с ID: {employer_id}")
+                        break  # Выход из цикла, если нет вакансий
+
+                    self.__params["page"] += 1
+                    time.sleep(1)  # Задержка в 1 секунду между запросами к API
+            except Exception as e:
+                print(f"Произошла ошибка: {e}")

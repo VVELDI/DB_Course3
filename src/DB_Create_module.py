@@ -1,11 +1,8 @@
 import os
-
 import psycopg2
 from dotenv import load_dotenv
 
-
 load_dotenv()
-
 
 class DBConnection:
     """Класс для подключения к базе данных PostgreSQL"""
@@ -18,29 +15,48 @@ class DBConnection:
         self._password = os.getenv("PASSWORD")
 
     def connect_to_db(self, query, params=None):
-        conn = psycopg2.connect(
-                    host=self._host,
-                    database=self._database,
-                    user=self._username,
-                    port=self._port,
-                    password=self._password)
-        conn.autocommit = True
-        cur = conn.cursor()
-        cur.execute(query, params)
-
-        cur.close()
-        conn.close()
+        try:
+            conn = psycopg2.connect(
+                host=self._host,
+                database=self._database,
+                user=self._username,
+                port=self._port,
+                password=self._password,
+            )
+            conn.autocommit = True
+            cur = conn.cursor()
+            cur.execute(query, params)
+            cur.close()
+            conn.close()
+        except psycopg2.OperationalError as e:
+            print(f"Ошибка подключения к базе данных: {e}")
+        except Exception as e:
+            print(f"Ошибка при выполнении запроса: {e}")
 
     def create_db(self):
         """Метод для создания базы данных"""
         try:
-            self._database = "postgres"
+            original_database = self._database  # Сохраняем оригинальное имя базы данных
+            self._database = "postgres"  # Подключаемся к системной базе данных
+
+            # Удаляем базу данных, если она существует
             execute_message_drop = "DROP DATABASE IF EXISTS employers_vacancy;"
             self.connect_to_db(execute_message_drop)
+
+            # Создаем новую базу данных
+            execute_message_create = "CREATE DATABASE employers_vacancy;"
+            self.connect_to_db(execute_message_create)
+
+            # Возвращаем оригинальное имя базы данных
+            self._database = original_database
+            print("База данных employers_vacancy успешно создана.")
         except Exception as e:
-            print(f'Ошибка с подключением: {e}')
-        execute_message_create = "CREATE DATABASE employers_vacancy;"
-        self.connect_to_db(execute_message_create)
+            print(f'Ошибка при создании базы данных: {e}')
+
+    def db_clear_employers(self):
+        """Метод для очистки таблицы employers"""
+        execute_message = "TRUNCATE TABLE employers RESTART IDENTITY CASCADE;"
+        self.connect_to_db(execute_message)
 
     def db_creating_employers(self) -> None:
         execute_message = """CREATE TABLE IF NOT EXISTS employers 
@@ -55,7 +71,8 @@ class DBConnection:
         ]
         try:
             execute_message = """INSERT INTO employers (employer_id, company_name, vacancies_count) 
-            VALUES (%s, %s, %s)"""
+            VALUES (%s, %s, %s) 
+            ON CONFLICT (employer_id) DO NOTHING;"""  # Игнорируем дубликаты
             for employer in filtered_employers_list:
                 params = (
                     employer.get("id"),
@@ -79,33 +96,49 @@ class DBConnection:
         return self.connect_to_db(execute_message)
 
     def db_filling_vacancies(self, vacancies_list: list):
-        execute_message = """INSERT INTO vacancies 
-                        (vacancy_id, vacancy_name, salary_from, salary_to, requirement, url, employer_id) 
-                        VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-        for vacancy in vacancies_list:
-            params = (
-                vacancy.get("id"),
-                vacancy.get("name"),
-                (
-                    vacancy.get("salary").get("from")
-                    if vacancy.get("salary") is not None
-                    else 0
-                ),
-                (
-                    vacancy.get("salary").get("to")
-                    if vacancy.get("salary") is not None
-                    else 0
-                ),
-                (
-                    vacancy.get("snippet").get("requirement")
-                    if vacancy.get("snippet") is not None
-                    else 0
-                ),
-                vacancy.get("url"),
-                (
-                    vacancy.get("employer").get("id")
-                    if vacancy.get("employer") is not None
-                    else 0
-                ),
-            )
-            self.connect_to_db(execute_message, params)
+        execute_message = """INSERT INTO vacancies
+                            (vacancy_id, vacancy_name, salary_from, salary_to, requirement, url, employer_id)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+        try:
+            with psycopg2.connect(
+                    host=self._host,
+                    database=self._database,
+                    user=self._username,
+                    port=self._port,
+                    password=self._password,
+            ) as conn:
+                conn.autocommit = True
+                with conn.cursor() as cur:
+                    for vacancy in vacancies_list:
+                        params = (
+                            vacancy.get("id"),
+                            vacancy.get("name"),
+                            (
+                                vacancy.get("salary").get("from")
+                                if vacancy.get("salary") is not None
+                                else 0
+                            ),
+                            (
+                                vacancy.get("salary").get("to")
+                                if vacancy.get("salary") is not None
+                                else 0
+                            ),
+                            (
+                                vacancy.get("snippet").get("requirement")
+                                if vacancy.get("snippet") is not None
+                                else ""
+                            ),
+                            vacancy.get("url"),
+                            (
+                                vacancy.get("employer").get("id")
+                                if vacancy.get("employer") is not None
+                                else ""
+                            ),
+                        )
+                        try:
+                            cur.execute(execute_message, params)
+                        except Exception as e:
+                            print(f"Ошибка при вставке вакансии: {e}")
+                            print(f"Данные вакансии: {vacancy}")
+        except Exception as e:
+            print(f"Ошибка при подключении к базе данных: {e}")

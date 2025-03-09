@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90373c1a-bc28-44b8-b771-062bfc430929" name="Changes" comment="Написал тесты">
+    <list default="true" id="90373c1a-bc28-44b8-b771-062bfc430929" name="Changes" comment="Устранил ошибки с импортом">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB_manager_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB_manager_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB_Create_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB_Create_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_api_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_api_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_files_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_files_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_vacancy.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_vacancy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +46,9 @@
     &quot;accountId&quot;: &quot;4fc3dc62-9ff7-416f-a274-a977c2192f96&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/pypoetry/Cache/virtualenvs/pythonproject3-NbTCO22v-py3.9/Lib/site-packages/psycopg2/__init__.py" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -49,14 +58,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "feature/course3"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests in test_api_module.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_create_module.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.111111.executor&quot;: &quot;Run&quot;,
+    &quot;Python.DB_Create_module.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.sad.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/course3&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\SkyPro\Projects\coursep3\pythonProject3\src" />
@@ -127,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739359627141</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Устранил ошибки с импортом">
+      <option name="closed" value="true" />
+      <created>1739359942609</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1739359942609</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -158,6 +180,7 @@
     <MESSAGE value="Создал модули для работы с базой данных" />
     <MESSAGE value="Создал модули для работы с API с вакансиями, установил соответствующие библиотеки" />
     <MESSAGE value="Написал тесты" />
-    <option name="LAST_COMMIT_MESSAGE" value="Написал тесты" />
+    <MESSAGE value="Устранил ошибки с импортом" />
+    <option name="LAST_COMMIT_MESSAGE" value="Устранил ошибки с импортом" />
   </component>
 </project>
