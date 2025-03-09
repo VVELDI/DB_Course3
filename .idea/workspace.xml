@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90373c1a-bc28-44b8-b771-062bfc430929" name="Changes" comment="Устранил ошибки с импортом">
+    <list default="true" id="90373c1a-bc28-44b8-b771-062bfc430929" name="Changes" comment="Написал тесты">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB_Create_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB_Create_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_api_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_api_module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_files_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_files_module.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_vacancy.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_vacancy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +143,23 @@
       <option name="project" value="LOCAL" />
       <updated>1739359942609</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Написал тесты">
+      <option name="closed" value="true" />
+      <created>1741527020912</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1741527020912</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Написал тесты">
+      <option name="closed" value="true" />
+      <created>1741527048784</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1741527048784</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -179,8 +189,8 @@
     <MESSAGE value="Создал модуль main" />
     <MESSAGE value="Создал модули для работы с базой данных" />
     <MESSAGE value="Создал модули для работы с API с вакансиями, установил соответствующие библиотеки" />
-    <MESSAGE value="Написал тесты" />
     <MESSAGE value="Устранил ошибки с импортом" />
-    <option name="LAST_COMMIT_MESSAGE" value="Устранил ошибки с импортом" />
+    <MESSAGE value="Написал тесты" />
+    <option name="LAST_COMMIT_MESSAGE" value="Написал тесты" />
   </component>
 </project>
