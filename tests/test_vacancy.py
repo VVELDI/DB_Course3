@@ -1,8 +1,18 @@
 import unittest
 from src.vacancy import Vacancy
 
+
 class TestVacancy(unittest.TestCase):
+    """
+    Тесты для класса Vacancy.
+    Проверяет инициализацию объекта, преобразование JSON-данных и получение информации о вакансии.
+    """
+
     def setUp(self):
+        """
+        Инициализация тестовых данных.
+        Создает пример JSON-вакансии для использования в тестах.
+        """
         # Пример JSON-вакансии
         self.json_vacancy = {
             "name": "Python Developer",
@@ -14,7 +24,11 @@ class TestVacancy(unittest.TestCase):
         }
 
     def test_vacancy_initialization(self):
-        """Тест инициализации объекта Vacancy"""
+        """
+        Тест инициализации объекта Vacancy.
+
+        Проверяет, что атрибуты объекта Vacancy устанавливаются правильно.
+        """
         vacancy = Vacancy(
             vacancy_name="Python Developer",
             vacancy_url="http://example.com",
@@ -35,7 +49,11 @@ class TestVacancy(unittest.TestCase):
         self.assertEqual(vacancy._Vacancy__employer_id, "1")
 
     def test_vacancy_initialization_with_missing_data(self):
-        """Тест инициализации объекта Vacancy с отсутствующими данными"""
+        """
+        Тест инициализации объекта Vacancy с отсутствующими данными.
+
+        Проверяет, что значения по умолчанию устанавливаются правильно.
+        """
         vacancy = Vacancy(
             vacancy_name="Python Developer",
             vacancy_url=None,
@@ -54,7 +72,11 @@ class TestVacancy(unittest.TestCase):
         self.assertEqual(vacancy._Vacancy__id, "Unknown")
 
     def test_cast_to_object_list(self):
-        """Тест преобразования JSON-вакансий в список объектов Vacancy"""
+        """
+        Тест преобразования JSON-вакансий в список объектов Vacancy.
+
+        Проверяет, что метод корректно преобразует JSON-данные в список объектов Vacancy.
+        """
         json_vacancies = [self.json_vacancy]
         vacancies_list = Vacancy.cast_to_object_list(json_vacancies)
 
@@ -72,7 +94,11 @@ class TestVacancy(unittest.TestCase):
         self.assertEqual(vacancies_list[0]._Vacancy__employer_id, "1")
 
     def test_get_vacancy_info(self):
-        """Тест свойства get_vacancy_info"""
+        """
+        Тест свойства get_vacancy_info.
+
+        Проверяет, что свойство возвращает информацию о вакансии в виде словаря.
+        """
         vacancy = Vacancy(
             vacancy_name="Python Developer",
             vacancy_url="http://example.com",
@@ -94,4 +120,3 @@ class TestVacancy(unittest.TestCase):
         self.assertEqual(vacancy_info["requirement"], "Experience with Python")
         self.assertEqual(vacancy_info["id"], "123456789")
         self.assertEqual(vacancy_info["employer_id"], "1")
-

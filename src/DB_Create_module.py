@@ -4,10 +4,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class DBConnection:
-    """Класс для подключения к базе данных PostgreSQL"""
+    """
+    Класс для подключения к базе данных PostgreSQL и выполнения операций с ней.
+    """
 
     def __init__(self):
+        """
+        Инициализация объекта DBConnection.
+        Загружает параметры подключения к базе данных из переменных окружения.
+        """
         self._host = os.getenv("HOST")
         self._database = os.getenv("DATABASE")
         self._username = os.getenv("USERNAME")
@@ -15,6 +22,12 @@ class DBConnection:
         self._password = os.getenv("PASSWORD")
 
     def connect_to_db(self, query, params=None):
+        """
+        Подключается к базе данных и выполняет SQL-запрос.
+
+        :param query: SQL-запрос для выполнения.
+        :param params: Параметры для SQL-запроса (опционально).
+        """
         try:
             conn = psycopg2.connect(
                 host=self._host,
@@ -34,7 +47,10 @@ class DBConnection:
             print(f"Ошибка при выполнении запроса: {e}")
 
     def create_db(self):
-        """Метод для создания базы данных"""
+        """
+        Создает новую базу данных employers_vacancy.
+        Если база данных уже существует, она будет удалена и создана заново.
+        """
         try:
             original_database = self._database  # Сохраняем оригинальное имя базы данных
             self._database = "postgres"  # Подключаемся к системной базе данных
@@ -54,11 +70,18 @@ class DBConnection:
             print(f'Ошибка при создании базы данных: {e}')
 
     def db_clear_employers(self):
-        """Метод для очистки таблицы employers"""
+        """
+        Очищает таблицу employers, удаляя все записи и сбрасывая идентификаторы.
+        """
         execute_message = "TRUNCATE TABLE employers RESTART IDENTITY CASCADE;"
         self.connect_to_db(execute_message)
 
     def db_creating_employers(self) -> None:
+        """
+        Создает таблицу employers, если она не существует.
+
+        :return: None
+        """
         execute_message = """CREATE TABLE IF NOT EXISTS employers 
             (employer_id varchar PRIMARY KEY,
             company_name varchar(50) UNIQUE,
@@ -66,6 +89,12 @@ class DBConnection:
         return self.connect_to_db(execute_message)
 
     def db_filling_columns_for_emps(self, employers_id_list: list, employers_list: list):
+        """
+        Заполняет таблицу employers данными о работодателях.
+
+        :param employers_id_list: Список идентификаторов работодателей для фильтрации.
+        :param employers_list: Список словарей с данными о работодателях.
+        """
         filtered_employers_list = [
             emp for emp in employers_list if emp["id"] in employers_id_list
         ]
@@ -84,6 +113,11 @@ class DBConnection:
             print(f"Ошибка: {e}")
 
     def db_creating_vacancies(self) -> None:
+        """
+        Создает таблицу vacancies, если она не существует.
+
+        :return: None
+        """
         execute_message = """CREATE TABLE IF NOT EXISTS vacancies 
             (vacancy_id varchar NOT NULL,
             vacancy_name varchar NOT NULL,
@@ -96,6 +130,11 @@ class DBConnection:
         return self.connect_to_db(execute_message)
 
     def db_filling_vacancies(self, vacancies_list: list):
+        """
+        Заполняет таблицу vacancies данными о вакансиях.
+
+        :param vacancies_list: Список словарей с данными о вакансиях.
+        """
         execute_message = """INSERT INTO vacancies
                             (vacancy_id, vacancy_name, salary_from, salary_to, requirement, url, employer_id)
                             VALUES (%s, %s, %s, %s, %s, %s, %s)"""

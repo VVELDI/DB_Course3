@@ -2,13 +2,30 @@ from abc import ABC, abstractmethod
 
 
 class VacancyABC(ABC):
+    """
+    Абстрактный базовый класс для работы с вакансиями.
+    Определяет обязательный метод для преобразования JSON-данных в список объектов.
+    """
 
     @abstractmethod
     def cast_to_object_list(self, json_vacancies):
+        """
+        Абстрактный метод для преобразования JSON-данных в список объектов.
+
+        :param json_vacancies: Список вакансий в формате JSON.
+        :return: Список объектов вакансий.
+        """
         pass
 
 
 class Vacancy(VacancyABC):
+    """
+    Класс для представления вакансии.
+
+    Использует слоты для оптимизации памяти и хранения данных о вакансии.
+    Реализует метод для преобразования JSON-данных в список объектов.
+    """
+
     __slots__ = (
         "__vacancy_name",
         "__vacancy_url",
@@ -29,6 +46,17 @@ class Vacancy(VacancyABC):
         vacancy_id,
         employer_id,
     ):
+        """
+        Инициализация объекта Vacancy.
+
+        :param vacancy_name: Название вакансии.
+        :param vacancy_url: Ссылка на вакансию.
+        :param salary_from: Нижняя граница зарплаты.
+        :param salary_to: Верхняя граница зарплаты.
+        :param requirement: Требования к вакансии.
+        :param vacancy_id: Уникальный идентификатор вакансии (должен состоять из 9 символов).
+        :param employer_id: Уникальный идентификатор работодателя.
+        """
         self.__vacancy_name: str = vacancy_name
         self.__vacancy_url: str = vacancy_url if vacancy_url else "Ссылка не указана"
         self.__salary_from: int = salary_from if salary_from else 0
@@ -42,8 +70,11 @@ class Vacancy(VacancyABC):
     @classmethod
     def cast_to_object_list(cls, json_vacancies) -> list:
         """
-        Классовый метод для преобразования списка словарей(вакансий) в формате json, полученный от API HH.ru,
-        в список объектов Vacancy
+        Классовый метод для преобразования списка словарей (вакансий) в формате JSON,
+        полученного от API HH.ru, в список объектов Vacancy.
+
+        :param json_vacancies: Список вакансий в формате JSON.
+        :return: Список объектов Vacancy.
         """
         vacancies_list = []
         for vacancy in json_vacancies:
@@ -69,7 +100,11 @@ class Vacancy(VacancyABC):
 
     @property
     def get_vacancy_info(self) -> dict:
-        """Функция-геттер для получения словаря по экземпляру класса Vacancy"""
+        """
+        Геттер для получения информации о вакансии в виде словаря.
+
+        :return: Словарь с информацией о вакансии.
+        """
         vacancy_dict = {
             "name": self.__vacancy_name,
             "url": self.__vacancy_url,

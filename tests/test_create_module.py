@@ -2,12 +2,25 @@ import unittest
 from unittest.mock import patch, Mock
 from src.DB_Create_module import DBConnection
 
+
 class TestDBConnection(unittest.TestCase):
+    """
+    Тесты для класса DBConnection, который отвечает за взаимодействие с базой данных.
+    """
+
     def setUp(self):
+        """
+        Инициализация объекта DBConnection перед каждым тестом.
+        """
         self.db = DBConnection()
 
     @patch('psycopg2.connect')
     def test_connect_to_db(self, mock_connect):
+        """
+        Тестирование метода connect_to_db.
+
+        Мокируем подключение к базе данных и проверяем, что метод корректно подключается к БД.
+        """
         # Мокируем подключение к базе данных
         mock_conn = Mock()
         mock_connect.return_value = mock_conn
@@ -19,6 +32,11 @@ class TestDBConnection(unittest.TestCase):
 
     @patch('psycopg2.connect')
     def test_create_db(self, mock_connect):
+        """
+        Тестирование метода create_db.
+
+        Мокируем подключение к базе данных и проверяем, что запросы на создание БД выполнены.
+        """
         # Мокируем подключение к базе данных
         mock_conn = Mock()
         mock_connect.return_value = mock_conn
@@ -30,6 +48,11 @@ class TestDBConnection(unittest.TestCase):
 
     @patch('psycopg2.connect')
     def test_db_creating_employers(self, mock_connect):
+        """
+        Тестирование метода db_creating_employers.
+
+        Мокируем подключение к базе данных и проверяем, что запрос на создание таблицы работодателей выполнен.
+        """
         # Мокируем подключение к базе данных
         mock_conn = Mock()
         mock_connect.return_value = mock_conn
@@ -41,6 +64,11 @@ class TestDBConnection(unittest.TestCase):
 
     @patch('psycopg2.connect')
     def test_db_filling_columns_for_emps(self, mock_connect):
+        """
+        Тестирование метода db_filling_columns_for_emps.
+
+        Мокируем подключение к базе данных и проверяем, что данные о работодателях корректно вставляются в таблицу.
+        """
         # Мокируем подключение к базе данных
         mock_conn = Mock()
         mock_connect.return_value = mock_conn
@@ -59,6 +87,11 @@ class TestDBConnection(unittest.TestCase):
 
     @patch('psycopg2.connect')
     def test_db_creating_vacancies(self, mock_connect):
+        """
+        Тестирование метода db_creating_vacancies.
+
+        Мокируем подключение к базе данных и проверяем, что запрос на создание таблицы вакансий выполнен.
+        """
         # Мокируем подключение к базе данных
         mock_conn = Mock()
         mock_connect.return_value = mock_conn
@@ -70,6 +103,11 @@ class TestDBConnection(unittest.TestCase):
 
     @patch('psycopg2.connect')
     def test_db_filling_vacancies(self, mock_connect):
+        """
+        Тестирование метода db_filling_vacancies.
+
+        Мокируем подключение к базе данных и проверяем, что данные о вакансиях корректно вставляются в таблицу.
+        """
         # Мокируем подключение к базе данных
         mock_conn = Mock()
         mock_cursor = Mock()
@@ -97,4 +135,3 @@ class TestDBConnection(unittest.TestCase):
         # Вызываем метод и проверяем, что запрос на вставку выполнен
         self.db.db_filling_vacancies(vacancies_list)
         mock_cursor.execute.assert_called_once()
-

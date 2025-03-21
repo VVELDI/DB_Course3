@@ -4,8 +4,16 @@ import json
 from src.files_module import JSONSaver
 from src.vacancy import Vacancy
 
+
 class TestJSONSaver(unittest.TestCase):
+    """
+    Тесты для класса JSONSaver, который отвечает за сохранение и управление вакансиями в JSON-файле.
+    """
+
     def setUp(self):
+        """
+        Инициализация объекта JSONSaver и тестовой вакансии перед каждым тестом.
+        """
         self.saver = JSONSaver()
         # Создаем объект Vacancy с правильными аргументами
         self.vacancy = Vacancy(
@@ -21,6 +29,11 @@ class TestJSONSaver(unittest.TestCase):
     @patch("builtins.open", new_callable=mock_open)
     @patch("json.dump")
     def test_save_to_json_file(self, mock_json_dump, mock_file_open):
+        """
+        Тестирование метода save_to_json_file.
+
+        Мокируем запись в файл и проверяем, что данные вакансий корректно сохраняются в JSON-файл.
+        """
         # Мокируем список вакансий
         vac_obj_list = [self.vacancy]
 
@@ -32,6 +45,11 @@ class TestJSONSaver(unittest.TestCase):
     @patch("builtins.open", new_callable=mock_open, read_data=json.dumps([{"id": "987654321", "name": "Java Developer"}]))
     @patch("json.dump")
     def test_add_vacancy(self, mock_json_dump, mock_file_open):
+        """
+        Тестирование метода add_vacancy.
+
+        Мокируем чтение и запись в файл и проверяем, что вакансия корректно добавляется в JSON-файл.
+        """
         # Вызываем метод и проверяем, что вакансия добавляется
         result = self.saver.add_vacancy(self.vacancy)
         mock_file_open.assert_called_with(self.saver.path, mode="r+")
@@ -41,6 +59,11 @@ class TestJSONSaver(unittest.TestCase):
     @patch("builtins.open", new_callable=mock_open, read_data=json.dumps([{"id": "123456789", "name": "Python Developer"}]))
     @patch("json.dump")
     def test_add_vacancy_already_exists(self, mock_json_dump, mock_file_open):
+        """
+        Тестирование метода add_vacancy, когда вакансия уже существует.
+
+        Мокируем чтение и запись в файл и проверяем, что вакансия не добавляется, если она уже есть в файле.
+        """
         # Вызываем метод и проверяем, что вакансия не добавляется, если уже существует
         result = self.saver.add_vacancy(self.vacancy)
         mock_file_open.assert_called_with(self.saver.path, mode="r+")
@@ -50,6 +73,11 @@ class TestJSONSaver(unittest.TestCase):
     @patch("builtins.open", new_callable=mock_open, read_data=json.dumps([{"id": "123456789", "name": "Python Developer"}]))
     @patch("json.dump")
     def test_delete_vacancy(self, mock_json_dump, mock_file_open):
+        """
+        Тестирование метода delete_vacancy.
+
+        Мокируем чтение и запись в файл и проверяем, что вакансия корректно удаляется из JSON-файла.
+        """
         # Вызываем метод и проверяем, что вакансия удаляется
         result = self.saver.delete_vacancy(self.vacancy)
         mock_file_open.assert_called_with(self.saver.path, mode="r+")
@@ -59,6 +87,11 @@ class TestJSONSaver(unittest.TestCase):
     @patch("builtins.open", new_callable=mock_open, read_data=json.dumps([{"id": "987654321", "name": "Java Developer"}]))
     @patch("json.dump")
     def test_delete_vacancy_not_found(self, mock_json_dump, mock_file_open):
+        """
+        Тестирование метода delete_vacancy, когда вакансия не найдена.
+
+        Мокируем чтение и запись в файл и проверяем, что вакансия не удаляется, если её нет в файле.
+        """
         # Вызываем метод и проверяем, что вакансия не удаляется, если её нет в файле
         result = self.saver.delete_vacancy(self.vacancy)
         mock_file_open.assert_called_with(self.saver.path, mode="r+")
